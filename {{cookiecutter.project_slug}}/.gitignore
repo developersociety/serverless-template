@@ -1,0 +1,13 @@
+# Python
+*.py[co]
+
+# Testing
+.coverage
+.pytest_cache
+.tox
+htmlcov
+reports
+
+# Zappa
+.zappaenv
+*.zip

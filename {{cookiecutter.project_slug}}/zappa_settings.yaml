@@ -1,0 +1,20 @@
+---
+production:
+  project_name: "{{ cookiecutter.project_slug }}"
+  s3_bucket: "{{ cookiecutter.project_slug }}-production-CURRENT_DATE"
+  app_function: "{{ cookiecutter.project_slug }}.app"
+  lambda_description: "{{ cookiecutter.project_name }}"
+  aws_region: "eu-west-2"
+  profile_name: "default"
+  runtime: "python3.6"
+  memory_size: 128
+  debug: false
+  exclude:
+    - .coverage
+    - .git
+    - .pytest_cache
+    - .tox
+    - .zappaenv
+    - htmlcov
+    - reports
+    - tests
