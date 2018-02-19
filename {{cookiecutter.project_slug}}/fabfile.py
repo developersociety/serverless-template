@@ -1,5 +1,10 @@
-from fabric.api import local, task
+from fabric.api import local as fab_local, task
 from fabric.context_managers import prefix, quiet
+
+
+# We need bash as our local shell to execute commands in (as we're using source)
+def local(command, capture=False, shell='/bin/bash'):
+    return fab_local(command, capture=capture, shell=shell)
 
 
 @task
