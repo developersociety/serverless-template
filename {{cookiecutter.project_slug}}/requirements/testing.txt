@@ -4,7 +4,7 @@ coverage==4.5.1
 flake8==3.5.0
 Flask-WebTest==0.0.9
 isort==4.2.15
-pipdeptree==0.12.1
+pipdeptree==0.13.0
 pytest-flask==0.10.0
-pytest==3.4.0
+pytest==3.6.3
 yapf==0.16.1
