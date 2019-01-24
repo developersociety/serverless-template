@@ -5,7 +5,14 @@ production:
   app_function: "{{ cookiecutter.project_slug }}.app"
   lambda_description: "{{ cookiecutter.project_name }}"
   aws_region: "eu-west-2"
-  profile_name: "default"
+  profile_name: "devsoc"
+  vpc_config:
+    SubnetIds:
+      - subnet-028fab5c8a085a22b
+      - subnet-085f07f084a47719e
+      - subnet-0c77ed6b9e2d6612a
+    SecurityGroupIds:
+      - sg-008358592736eed13
   runtime: "python3.6"
   memory_size: 128
   debug: false
