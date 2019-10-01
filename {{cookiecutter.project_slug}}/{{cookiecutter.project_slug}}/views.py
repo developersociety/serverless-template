@@ -1,6 +1,6 @@
 from . import app
 
 
-@app.route('/')
+@app.route("/")
 def index():
-    return 'Hello, world!', 200
+    return "Hello, world!", 200
