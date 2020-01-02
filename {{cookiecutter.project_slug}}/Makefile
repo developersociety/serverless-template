@@ -89,15 +89,15 @@ fab-deploy:
 
 # ISort
 isort-lint:
-	isort --recursive --check-only --diff {{ cookiecutter.project_slug }} tests
+	isort --recursive --check-only --diff project tests
 
 isort-format:
-	isort --recursive {{ cookiecutter.project_slug }} tests
+	isort --recursive project tests
 
 
 # Flake8
 flake8-lint:
-	flake8 {{ cookiecutter.project_slug }} tests
+	flake8 project tests
 
 
 # Coverage
@@ -123,10 +123,10 @@ pytest-test:
 
 # Black
 black-lint:
-	black --line-length 99 --check {{ cookiecutter.project_slug }} tests
+	black --line-length 99 --check project tests
 
 black-format:
-	black --line-length 99 {{ cookiecutter.project_slug }} tests
+	black --line-length 99 project tests
 
 
 #pipdeptree
@@ -136,7 +136,7 @@ pipdeptree-check:
 
 # Local server
 flask-serve:
-	FLASK_APP={{ cookiecutter.project_slug }} FLASK_DEBUG=1 python -m flask run
+	FLASK_APP=project FLASK_DEBUG=1 python -m flask run
 
 
 # Help

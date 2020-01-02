@@ -1,7 +1,7 @@
 import pytest
 from flask_webtest import TestApp
 
-from {{ cookiecutter.project_slug }} import app
+from project import app
 
 
 @pytest.fixture

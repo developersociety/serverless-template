@@ -1,7 +1,7 @@
 [run]
 branch = True
 include =
-    {{ cookiecutter.project_slug }}/*
+    project/*
 
 [xml]
 output = reports/coverage.xml

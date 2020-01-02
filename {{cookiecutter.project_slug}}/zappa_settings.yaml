@@ -2,7 +2,7 @@
 production:
   project_name: "{{ cookiecutter.project_slug }}"
   s3_bucket: "{{ cookiecutter.project_slug }}-production-CURRENT_DATE"
-  app_function: "{{ cookiecutter.project_slug }}.app"
+  app_function: "project.app"
   lambda_description: "{{ cookiecutter.project_name }}"
   aws_region: "eu-west-2"
   profile_name: "devsoc"
