@@ -15,6 +15,15 @@ provider:
   logRetentionInDays: 30
   apiGateway:
     description: "{{ cookiecutter.project_name }}"
+{%- if cookiecutter.vpc == 'y' %}
+  vpc:
+    securityGroupIds:
+      - sg-01991d1c207395dd5
+    subnetIds:
+      - subnet-0a274d69488f78b8f
+      - subnet-016fda42e2c4c85b2
+      - subnet-01bff5ccd41216b56
+{%- endif %}
 
 custom:
   wsgi:
