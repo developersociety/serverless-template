@@ -6,8 +6,12 @@
 .pytest_cache
 .tox
 htmlcov
-reports
+/reports/
 
-# Zappa
-.zappaenv
-*.zip
+# NodeJS
+/node_modules
+npm-debug.log
+npm-debug.log.*
+
+# Serverless
+.serverless

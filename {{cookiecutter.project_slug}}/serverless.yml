@@ -1,0 +1,47 @@
+service: {{ cookiecutter.project_slug }}
+
+plugins:
+  - serverless-pseudo-parameters
+  - serverless-python-requirements
+  - serverless-wsgi
+
+provider:
+  name: aws
+  runtime: python3.7
+  memorySize: 128
+  timeout: 30
+  stage: ${opt:stage, "production"}
+  region: eu-west-2
+  logRetentionInDays: 30
+  apiGateway:
+    description: "{{ cookiecutter.project_name }}"
+
+custom:
+  wsgi:
+    app: project.app
+    packRequirements: false
+  pythonRequirements:
+    fileName: requirements/base.txt
+    dockerizePip: non-linux
+    layer: true
+    slim: true
+    strip: false
+
+package:
+  exclude:
+    - "**"
+  include:
+    - project/**
+
+resources:
+  Description: "{{ cookiecutter.project_name }}"
+
+functions:
+  app:
+    description: "{{ cookiecutter.project_name }}"
+    handler: wsgi_handler.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+    layers:
+      - {Ref: PythonRequirementsLambdaLayer}

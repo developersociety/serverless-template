@@ -5,7 +5,6 @@ import pytest
 
 @pytest.mark.usefixtures("flask_webtest")
 class TestViews(unittest.TestCase):
-
     def test_root(self):
         response = self.app.get("/")
 

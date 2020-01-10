@@ -32,7 +32,7 @@ clear: ## Like reset but without the wiping of the installs.
 clear: ;
 
 check: ## Check for any obvious errors in the project's setup.
-check: pipdeptree-check
+check: pipdeptree-check npm-check
 
 format: ## Run this project's code formatters.
 format: black-format isort-format
@@ -74,7 +74,7 @@ venv-wipe: venv-check
 
 
 # Installs
-install-local: pip-install-local
+install-local: npm-install pip-install-local
 
 
 # Pip
@@ -119,6 +119,13 @@ coverage-clean:
 # Project testing
 pytest-test:
 	coverage run -m pytest
+
+
+# NPM
+npm-check: npm-install
+
+npm-install:
+	cmp --silent package-lock.json node_modules/.package-lock.json || npm ci && cp -a package-lock.json node_modules/.package-lock.json
 
 
 # Black

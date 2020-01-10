@@ -1,8 +1,6 @@
-====================================
-The Developer Society Zappa Template
-====================================
-
-It only supports Python 3.6.
+=========================================
+The Developer Society Serverless Template
+=========================================
 
 Installation
 ------------
@@ -29,4 +27,4 @@ Create a site using this template:
 
 .. code-block:: console
 
-    $ cookiecutter gh:developersociety/zappa-template
+    $ cookiecutter gh:developersociety/serverless-template
