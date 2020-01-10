@@ -92,3 +92,18 @@ def lambda_env(name=None, value=None):
             '--value "{}" '
             '--overwrite'.format(stack_name, name, value)
         )
+
+
+@task
+@aws_vault
+def invoke(name):
+    """
+    Invoke a lambda function.
+
+    Examples:
+
+      fab invoke:function_name
+
+      fab invoke:name=function_name
+    """
+    local('npm run serverless -- invoke --stage {} --function {}'.format(env.stage, name))
