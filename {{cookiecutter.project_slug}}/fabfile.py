@@ -64,13 +64,15 @@ def lambda_env(name=None, value=None):
 
       fab lambda_env
     """
+    stack_name = '{}-{}'.format(env.appname, env.stage)
+
     if name is None and value is None:
         # List parameters
         local(
             'aws ssm get-parameters-by-path '
             '--region eu-west-2 '
             '--path "/serverless/{}/" '
-            '--with-decryption'.format(env.appname)
+            '--with-decryption'.format(stack_name)
         )
     elif value is None:
         # Get parameter
@@ -78,7 +80,7 @@ def lambda_env(name=None, value=None):
             'aws ssm get-parameter '
             '--region eu-west-2 '
             '--name "/serverless/{}/{}" '
-            '--with-decryption'.format(env.appname, name)
+            '--with-decryption'.format(stack_name, name)
         )
     else:
         # Set parameter
@@ -88,5 +90,5 @@ def lambda_env(name=None, value=None):
             '--name "/serverless/{}/{}" '
             '--type SecureString '
             '--value "{}" '
-            '--overwrite'.format(env.appname, name, value)
+            '--overwrite'.format(stack_name, name, value)
         )

@@ -24,6 +24,8 @@ provider:
       - subnet-016fda42e2c4c85b2
       - subnet-01bff5ccd41216b56
 {%- endif %}
+#   environment:
+#     EXAMPLE_API_KEY: ${ssm:/serverless/{{ cookiecutter.project_slug }}-${opt:stage}/EXAMPLE_API_KEY~true}
 
 custom:
   wsgi:
