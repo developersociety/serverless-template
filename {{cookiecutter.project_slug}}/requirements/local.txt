@@ -1,5 +1,5 @@
 -r testing.txt
 
-awscli==1.16.313
-ipdb==0.12.3
-tox==3.14.3
+awscli==1.19.105
+ipdb==0.13.9
+tox==3.23.1

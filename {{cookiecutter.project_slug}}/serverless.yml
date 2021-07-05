@@ -1,20 +1,18 @@
 service: {{ cookiecutter.project_slug }}
 
-plugins:
-  - serverless-pseudo-parameters
-  - serverless-python-requirements
-  - serverless-wsgi
+variablesResolutionMode: 20210326
 
 provider:
   name: aws
-  runtime: python3.8
   memorySize: 128
   timeout: 30
   stage: ${opt:stage, "production"}
   region: eu-west-2
   logRetentionInDays: 30
+  lambdaHashingVersion: 20201221
   apiGateway:
     description: "{{ cookiecutter.project_name }}"
+    shouldStartNameWithService: true
 {%- if cookiecutter.vpc == 'y' %}
   vpc:
     securityGroupIds:
@@ -25,34 +23,16 @@ provider:
       - subnet-01bff5ccd41216b56
 {%- endif %}
 #   environment:
-#     EXAMPLE_API_KEY: ${ssm:/serverless/{{ cookiecutter.project_slug }}-${opt:stage}/EXAMPLE_API_KEY~true}
-
-custom:
-  wsgi:
-    app: project.app
-    packRequirements: false
-  pythonRequirements:
-    fileName: requirements/base.txt
-    dockerizePip: non-linux
-    layer: true
-    slim: true
-    strip: false
-
-package:
-  exclude:
-    - "**"
-  include:
-    - project/**
+#     EXAMPLE_API_KEY: ${ssm:/serverless/${self:service}-${sls:stage}/EXAMPLE_API_KEY}
 
 resources:
   Description: "{{ cookiecutter.project_name }}"
 
 functions:
   app:
-    description: "{{ cookiecutter.project_name }}"
-    handler: wsgi_handler.handler
+    description: "{{ cookiecutter.project_name }} - app"
     events:
       - http: ANY /
-      - http: 'ANY {proxy+}'
-    layers:
-      - {Ref: PythonRequirementsLambdaLayer}
+      - http: 'ANY /{proxy+}'
+    image:
+      uri: 253670703218.dkr.ecr.eu-west-2.amazonaws.com/${self:service}-${sls:stage}:latest

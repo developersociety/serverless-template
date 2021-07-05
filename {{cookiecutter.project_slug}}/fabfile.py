@@ -1,9 +1,5 @@
-from functools import wraps
-import json
-import os
-
-from fabric.api import env, execute, local, task
-from fabric.context_managers import prefix, quiet
+from fabric.api import env, local, task
+from fabric.context_managers import quiet
 
 env.appname = env.get('appname', '{{ cookiecutter.project_slug }}')
 env.profile = env.get('profile', 'devsoc-serverless')
@@ -18,36 +14,49 @@ def demo():
     env.stage = 'demo'
 
 
-def aws_vault(func):
+def aws_vault(command, capture=False, shell=None):
     """
-    Wrapper to load environment variables from aws-vault
+    Run aws-vault locally with the given profile.
     """
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        if os.environ.get('AWS_SECRET_ACCESS_KEY') is None:
-            aws_json = local('aws-vault exec {} --json'.format(env.profile), capture=True)
-            aws_dict = json.loads(aws_json)
-
-            os.environ['AWS_ACCESS_KEY_ID'] = aws_dict['AccessKeyId']
-            os.environ['AWS_SECRET_ACCESS_KEY'] = aws_dict['SecretAccessKey']
-            os.environ['AWS_SESSION_TOKEN'] = aws_dict['SessionToken']
-
-        func(*args, **kwargs)
-
-    return wrapper
+    vault_command = 'aws-vault exec {} -- {}'.format(env.profile, command)
+    return local(vault_command, capture=capture, shell=shell)
 
 
 @task
-@aws_vault
 def deploy():
     """
     Deploy to AWS.
     """
-    local('npm run serverless -- deploy --stage {}'.format(env.stage))
+    service_name = '{}-{}'.format(env.appname, env.stage)
+
+    with quiet():
+        ecr_repository_url = aws_vault(
+            'aws ecr create-repository --repository-name {}'.format(service_name),
+        )
+
+    ecr_repository_url = aws_vault(
+        'aws ecr describe-repositories '
+        '--repository-name {} '
+        '--output=text '
+        '--query=repositories[0].repositoryUri'.format(
+            service_name
+        ),
+        capture=True,
+    )
+    image_url = '{}'.format(ecr_repository_url)
+
+    # Build with a fresh environment to avoid uncommitted files or cruft
+    local('git archive HEAD | docker build --tag {} -'.format(image_url))
+
+    docker_login_command = aws_vault('aws ecr get-login --no-include-email', capture=True)
+    local(docker_login_command)
+
+    local('docker push {}'.format(image_url))
+
+    aws_vault('npm run serverless -- deploy --stage {}'.format(env.stage))
 
 
 @task
-@aws_vault
 def lambda_env(name=None, value=None):
     """
     Update SSM environment variables.
@@ -64,38 +73,37 @@ def lambda_env(name=None, value=None):
 
       fab lambda_env
     """
-    stack_name = '{}-{}'.format(env.appname, env.stage)
+    service_name = '{}-{}'.format(env.appname, env.stage)
 
     if name is None and value is None:
         # List parameters
-        local(
+        aws_vault(
             'aws ssm get-parameters-by-path '
             '--region eu-west-2 '
             '--path "/serverless/{}/" '
-            '--with-decryption'.format(stack_name)
+            '--with-decryption'.format(service_name)
         )
     elif value is None:
         # Get parameter
-        local(
+        aws_vault(
             'aws ssm get-parameter '
             '--region eu-west-2 '
             '--name "/serverless/{}/{}" '
-            '--with-decryption'.format(stack_name, name)
+            '--with-decryption'.format(service_name, name)
         )
     else:
         # Set parameter
-        local(
+        aws_vault(
             'aws ssm put-parameter '
             '--region eu-west-2 '
             '--name "/serverless/{}/{}" '
             '--type SecureString '
             '--value "{}" '
-            '--overwrite'.format(stack_name, name, value)
+            '--overwrite'.format(service_name, name, value)
         )
 
 
 @task
-@aws_vault
 def invoke(name):
     """
     Invoke a lambda function.
@@ -106,4 +114,4 @@ def invoke(name):
 
       fab invoke:name=function_name
     """
-    local('npm run serverless -- invoke --stage {} --function {}'.format(env.stage, name))
+    aws_vault('npm run serverless -- invoke --stage {} --function {}'.format(env.stage, name))

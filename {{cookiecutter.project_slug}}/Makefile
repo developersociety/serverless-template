@@ -89,10 +89,10 @@ fab-deploy:
 
 # ISort
 isort-lint:
-	isort --recursive --check-only --diff project tests
+	isort --check-only --diff project tests
 
 isort-format:
-	isort --recursive project tests
+	isort project tests
 
 
 # Flake8
@@ -118,22 +118,22 @@ coverage-clean:
 
 # Project testing
 pytest-test:
-	coverage run -m pytest
+	PYTHONWARNINGS=all coverage run -m pytest
 
 
 # NPM
 npm-check: npm-install
 
 npm-install:
-	cmp --silent package-lock.json node_modules/.package-lock.json || npm ci && cp -a package-lock.json node_modules/.package-lock.json
+	cmp --silent package-lock.json node_modules/.package-lock.json || (npm ci && cp -a package-lock.json node_modules/.package-lock.json)
 
 
 # Black
 black-lint:
-	black --line-length 99 --check project tests
+	black --check project tests
 
 black-format:
-	black --line-length 99 project tests
+	black project tests
 
 
 #pipdeptree
