@@ -4,6 +4,7 @@ variablesResolutionMode: 20210326
 
 provider:
   name: aws
+  architecture: {{ cookiecutter.arch }}
   memorySize: 128
   timeout: 30
   stage: ${opt:stage, "production"}

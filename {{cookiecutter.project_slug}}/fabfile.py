@@ -2,6 +2,7 @@ from fabric.api import env, local, task
 from fabric.context_managers import quiet
 
 env.appname = env.get('appname', '{{ cookiecutter.project_slug }}')
+env.arch = env.get('arch', 'linux/{% if cookiecutter.arch == 'arm64' %}arm64{% else %}amd64{% endif %}')
 env.profile = env.get('profile', 'devsoc-serverless')
 env.stage = env.get('stage', 'production')
 
@@ -30,11 +31,11 @@ def deploy():
     service_name = '{}-{}'.format(env.appname, env.stage)
 
     with quiet():
-        ecr_repository_url = aws_vault(
+        aws_vault(
             'aws ecr create-repository --repository-name {}'.format(service_name),
         )
 
-    ecr_repository_url = aws_vault(
+    image_url = aws_vault(
         'aws ecr describe-repositories '
         '--repository-name {} '
         '--output=text '
@@ -43,15 +44,16 @@ def deploy():
         ),
         capture=True,
     )
-    image_url = '{}'.format(ecr_repository_url)
-
-    # Build with a fresh environment to avoid uncommitted files or cruft
-    local('git archive HEAD | docker build --tag {} -'.format(image_url))
 
     docker_login_command = aws_vault('aws ecr get-login --no-include-email', capture=True)
     local(docker_login_command)
 
-    local('docker push {}'.format(image_url))
+    # Build with a fresh environment to avoid uncommitted files or cruft
+    local(
+        'git archive HEAD | docker buildx build --push --platform={} --tag={} -'.format(
+            env.arch, image_url,
+        )
+    )
 
     aws_vault('npm run serverless -- deploy --stage {}'.format(env.stage))
 
