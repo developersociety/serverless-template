@@ -1,14 +1,14 @@
 # Serverless
-awslambdaric==1.2.0
+awslambdaric==2.0.1
 simplejson==3.17.2
 
 # Serverless WSGI
-serverless-wsgi==1.7.8
-Werkzeug==1.0.1
+serverless-wsgi==3.0.0
+Werkzeug==2.1.1
 
 # Flask
-Flask==1.1.4
-Click==7.1.2
-itsdangerous==1.1.0
-Jinja2==2.11.3
-MarkupSafe==1.1.1
+Flask==2.1.1
+click==8.1.2
+itsdangerous==2.1.2
+Jinja2==3.1.1
+MarkupSafe==2.1.1
