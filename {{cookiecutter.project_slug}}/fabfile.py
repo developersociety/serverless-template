@@ -44,9 +44,13 @@ def deploy():
         ),
         capture=True,
     )
+    repository_hostname = image_url.split('/')[0]
 
-    docker_login_command = aws_vault('aws ecr get-login --no-include-email', capture=True)
-    local(docker_login_command)
+    aws_vault(
+        'aws ecr get-login-password | docker login --username AWS --password-stdin {}'.format(
+            repository_hostname,
+        )
+    )
 
     # Build with a fresh environment to avoid uncommitted files or cruft
     local(
