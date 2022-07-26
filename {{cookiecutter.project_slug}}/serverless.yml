@@ -1,19 +1,16 @@
 service: {{ cookiecutter.project_slug }}
 
-variablesResolutionMode: 20210326
-
 provider:
   name: aws
   architecture: {{ cookiecutter.arch }}
+  deploymentMethod: direct
   memorySize: 128
   timeout: 30
   stage: ${opt:stage, "production"}
   region: eu-west-2
   logRetentionInDays: 30
-  lambdaHashingVersion: 20201221
   apiGateway:
     description: "{{ cookiecutter.project_name }}"
-    shouldStartNameWithService: true
 {%- if cookiecutter.vpc == 'y' %}
   vpc:
     securityGroupIds:
