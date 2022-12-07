@@ -36,5 +36,5 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json', '**/package-lock.json') }}
       - name: Run tests
         run: |
-          pip install tox
+          pip install $(grep "^tox==" requirements/local.txt)
           tox -e ${{ matrix.testenv }}
