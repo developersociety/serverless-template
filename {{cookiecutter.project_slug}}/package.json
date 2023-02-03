@@ -4,6 +4,6 @@
     "serverless": "serverless"
   },
   "dependencies": {
-    "serverless": "^3.21.0"
+    "serverless": "^3.27.0"
   }
 }
