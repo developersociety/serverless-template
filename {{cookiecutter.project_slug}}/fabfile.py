@@ -53,9 +53,11 @@ def deploy():
     )
 
     # Build with a fresh environment to avoid uncommitted files or cruft
+    sentry_release = local("git rev-parse HEAD", capture=True)
     local(
-        'git archive HEAD | docker buildx build --push --platform={} --tag={} -'.format(
-            env.arch, image_url,
+        'git archive HEAD | '
+        'docker buildx build --build-arg SENTRY_RELEASE={} --push --platform={} --tag={} -'.format(
+            sentry_release, env.arch, image_url,
         )
     )
 

@@ -6,6 +6,8 @@ RUN pip install \
         --no-cache-dir \
         --requirement /app/requirements/production.txt
 COPY . /app
+ARG SENTRY_RELEASE
+RUN echo "$SENTRY_RELEASE" > .sentry-release
 
 WORKDIR /app
 ENTRYPOINT [ "/usr/local/bin/python", "-m", "awslambdaric" ]

@@ -2,6 +2,11 @@
 awslambdaric==2.0.4
 simplejson==3.17.2
 
+# Reporting (Errors)
+sentry-sdk==1.23.1
+certifi==2023.5.7
+urllib3==1.26.15
+
 # Serverless WSGI
 serverless-wsgi==3.0.2
 Werkzeug==2.3.4
