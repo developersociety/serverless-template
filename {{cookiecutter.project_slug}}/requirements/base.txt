@@ -4,7 +4,7 @@ simplejson==3.17.2
 
 # Reporting (Errors)
 sentry-sdk==1.23.1
-certifi==2023.5.7
+certifi==2023.7.22
 urllib3==1.26.15
 
 # Serverless WSGI
