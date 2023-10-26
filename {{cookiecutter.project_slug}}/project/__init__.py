@@ -19,7 +19,6 @@ if os.environ.get("SENTRY_DSN"):
         integrations=[AwsLambdaIntegration(timeout_warning=True)],
     )
 
-
 app = Flask(__name__)
 
 from . import views  # noqa isort:skip

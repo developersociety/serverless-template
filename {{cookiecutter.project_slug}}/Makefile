@@ -101,14 +101,11 @@ flake8-lint:
 
 
 # Coverage
-coverage-report: coverage-html coverage-xml
+coverage-report: coverage-html
 	coverage report --show-missing
 
 coverage-html:
 	coverage html
-
-coverage-xml:
-	coverage xml
 
 coverage-clean:
 	rm -rf htmlcov

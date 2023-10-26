@@ -2,6 +2,3 @@
 branch = True
 include =
     project/**
-
-[xml]
-output = reports/coverage.xml

@@ -1,4 +1,4 @@
 -r testing.txt
 
 ipdb==0.13.13
-tox==3.28.0
+tox==4.11.3
