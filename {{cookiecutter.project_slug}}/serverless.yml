@@ -1,5 +1,7 @@
 service: {{ cookiecutter.project_slug }}
 
+configValidationMode: error
+
 provider:
   name: aws
   architecture: {{ cookiecutter.arch }}
