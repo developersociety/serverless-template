@@ -11,8 +11,10 @@ provider:
   stage: ${opt:stage, "production"}
   region: eu-west-2
   logRetentionInDays: 30
-  apiGateway:
-    description: "{{ cookiecutter.project_name }}"
+{%- if cookiecutter.function_url != 'y' %}
+  httpApi:
+    shouldStartNameWithService: true
+{%- endif %}
 {%- if cookiecutter.vpc == 'y' %}
   vpc:
     securityGroupIds:
@@ -32,8 +34,11 @@ resources:
 functions:
   app:
     description: "{{ cookiecutter.project_name }} - app"
+{%- if cookiecutter.function_url == 'y' %}
+    url: true
+{%- else %}
     events:
-      - http: ANY /
-      - http: 'ANY /{proxy+}'
+      - httpApi: '*'
+{%- endif %}
     image:
       uri: 253670703218.dkr.ecr.eu-west-2.amazonaws.com/${self:service}-${sls:stage}:latest

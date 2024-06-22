@@ -2,6 +2,7 @@
     "project_name": "Project Name",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '').replace('-', '').replace('_', '') }}",
     "arch": ["arm64", "x86_64"],
+    "function_url": "y",
     "vpc": "n",
     "_copy_without_render": [
         ".github/workflows/*.yml"
