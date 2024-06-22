@@ -109,7 +109,6 @@ coverage-html:
 
 coverage-clean:
 	rm -rf htmlcov
-	rm -rf reports
 	rm -f .coverage
 
 

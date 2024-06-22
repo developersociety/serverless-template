@@ -6,7 +6,6 @@
 .pytest_cache
 .tox
 htmlcov
-/reports/
 
 # NodeJS
 /node_modules
