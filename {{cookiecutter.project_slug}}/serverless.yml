@@ -7,7 +7,7 @@ provider:
   architecture: {{ cookiecutter.arch }}
   deploymentMethod: direct
   memorySize: 128
-  timeout: 30
+  timeout: 20
   stage: ${opt:stage, "production"}
   region: eu-west-2
   logRetentionInDays: 30
