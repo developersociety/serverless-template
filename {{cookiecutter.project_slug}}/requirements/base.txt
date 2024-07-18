@@ -3,7 +3,7 @@ awslambdaric==2.0.12
 simplejson==3.19.2
 
 # Reporting (Errors)
-sentry-sdk==2.6.0
+sentry-sdk==2.8.0
 certifi==2024.7.4
 urllib3==2.2.2
 
