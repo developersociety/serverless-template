@@ -1,16 +1,16 @@
 # Serverless
-awslambdaric==2.0.12
-simplejson==3.19.2
+awslambdaric==2.2.1
+simplejson==3.19.3
 
 # Reporting (Errors)
-sentry-sdk==2.8.0
-certifi==2024.7.4
-urllib3==2.2.2
+sentry-sdk==2.17.0
+certifi==2024.8.30
+urllib3==2.2.3
 
 # Serverless WSGI
 serverless-wsgi==3.0.4
-MarkupSafe==2.1.5
-Werkzeug==3.0.3
+MarkupSafe==3.0.1
+Werkzeug==3.0.4
 
 # Flask
 Flask==3.0.3
