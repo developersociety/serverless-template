@@ -10,7 +10,7 @@ urllib3==2.2.3
 # Serverless WSGI
 serverless-wsgi==3.0.4
 MarkupSafe==3.0.1
-Werkzeug==3.0.4
+Werkzeug==3.0.6
 
 # Flask
 Flask==3.0.3
