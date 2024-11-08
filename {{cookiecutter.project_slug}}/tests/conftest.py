@@ -1,9 +1,8 @@
 import pytest
-from flask_webtest import TestApp
 
-from project import app
+import project
 
 
 @pytest.fixture
-def flask_webtest(request):
-    request.cls.app = TestApp(app)
+def app():
+    return project.app
