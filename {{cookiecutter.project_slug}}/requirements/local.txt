@@ -1,5 +1,5 @@
 -r testing.txt
 
 ipdb==0.13.13
-tox==4.23.2
-tox-uv==1.16.0
+tox==4.26.0
+tox-uv==1.26.0

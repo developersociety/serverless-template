@@ -1,4 +1,4 @@
 -r testing.txt
 
-tox==4.23.2
-tox-uv==1.16.0
+tox==4.26.0
+tox-uv==1.26.0
