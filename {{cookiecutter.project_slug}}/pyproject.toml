@@ -1,12 +1,83 @@
 [tool.black]
 line-length = 99
-target-version = ['py313']
+target-version = ["py313"]
 
-[tool.isort]
-combine_as_imports = true
-sections = ['FUTURE','STDLIB','THIRDPARTY','FIRSTPARTY','LOCALFOLDER']
-include_trailing_comma = true
-float_to_top = true
-force_grid_wrap = 0
-line_length = 99
-multi_line_output = 3
+[tool.ruff]
+line-length = 99
+target-version = "py313"
+
+[tool.ruff.lint]
+extend-select = [
+    "F",     # pyflakes
+    "E",     # pycodestyle
+    "W",     # pycodestyle
+    "I",     # isort
+    "N",     # pep8-naming
+    "UP",    # pyupgrade
+    "YTT",   # flake8-2020
+    "ASYNC", # flake8-async
+    "S",     # flake8-bandit
+    "BLE",   # flake8-blind-except
+    "B",     # flake8-bugbear
+    "A",     # flake8-builtins
+    "C4",    # flake8-comprehensions
+    "DTZ",   # flake8-datetimez
+    "T10",   # flake8-debugger
+    "DJ",    # flake8-django
+    "EM",    # flake8-errmsg
+    "EXE",   # flake8-executable
+    "FA",    # flake8-future-annotations
+    "ISC",   # flake8-implicit-str-concat
+    "ICN",   # flake8-import-conventions
+    "LOG",   # flake8-logging
+    "G",     # flake8-logging-format
+    "INP",   # flake8-no-pep420
+    "PIE",   # flake8-pie
+    "T20",   # flake8-print
+    "PYI",   # flake8-pyi
+    "RSE",   # flake8-raise
+    "RET",   # flake8-return
+    "SLOT",  # flake8-slots
+    "SIM",   # flake8-simplify
+    "TID",   # flake8-tidy-imports
+    "TCH",   # flake8-type-checking
+    "INT",   # flake8-gettext
+    "PTH",   # flake8-use-pathlib
+    "TD",    # flake8-todos
+    "ERA",   # eradicate
+    "PD",    # pandas-vet
+    "PGH",   # pygrep-hooks
+    "PLC",   # pylint
+    "PLE",   # pylint
+    "PLW",   # pylint
+    "TRY",   # tryceratops
+    "NPY",   # numpy-specific rules
+    "PERF",  # perflint
+    "FURB",  # refurb
+    "RUF",   # ruff-specific rules
+]
+ignore = [
+    "EM101",  # flake8-errmsg: raw-string-in-exception
+    "ISC001", # flake8-implicit-str-concat: single-line-implicit-string-concatenation
+    "RUF012", # ruff-specific rules: mutable-class-default
+    "SIM108", # flake8-simplify: if-else-block-instead-of-if-exp
+    "TD002",  # flake8-todos: missing-todo-author
+    "TRY003", # tryceratops: raise-vanilla-args
+]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+
+[tool.ruff.lint.pep8-naming]
+extend-ignore-names = [
+    "assert*",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*.py" = [
+    "S101", # flake8-bandit: assert
+]
+"fabfile.py" = [
+    "PGH004", # pygrep-hooks: blanket-noqa
+]

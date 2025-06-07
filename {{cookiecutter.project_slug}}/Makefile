@@ -35,10 +35,10 @@ check: ## Check for any obvious errors in the project's setup.
 check: pipdeptree-check npm-check
 
 format: ## Run this project's code formatters.
-format: black-format isort-format
+format: ruff-format
 
 lint: ## Lint the project.
-lint: black-lint isort-lint flake8-lint
+lint: ruff-lint
 
 test: ## Run unit and integration tests.
 test: pytest-test
@@ -87,19 +87,6 @@ fab-deploy:
 	fab deploy
 
 
-# ISort
-isort-lint:
-	isort --check-only --diff project tests
-
-isort-format:
-	isort project tests
-
-
-# Flake8
-flake8-lint:
-	flake8 project tests
-
-
 # Coverage
 coverage-report: coverage-html
 	coverage report --show-missing
@@ -124,12 +111,14 @@ npm-install:
 	cmp --silent package-lock.json node_modules/.package-lock.json || (npm ci && cp -a package-lock.json node_modules/.package-lock.json)
 
 
-# Black
-black-lint:
-	black --check project tests
+# Ruff
+ruff-lint:
+	ruff check
+	ruff format --check
 
-black-format:
-	black project tests
+ruff-format:
+	ruff check --fix-only
+	ruff format
 
 
 #pipdeptree
