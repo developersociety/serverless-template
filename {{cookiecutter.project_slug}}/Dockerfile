@@ -4,6 +4,11 @@ COPY requirements/ /app/requirements/
 RUN pip install \
         --disable-pip-version-check \
         --no-cache-dir \
+        uv
+RUN uv pip install \
+        --system \
+        --no-cache-dir \
+        --compile-bytecode \
         --requirement /app/requirements/production.txt
 COPY . /app
 ARG SENTRY_RELEASE
