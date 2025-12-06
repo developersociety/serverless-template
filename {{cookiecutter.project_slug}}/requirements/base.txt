@@ -1,21 +1,21 @@
 # Serverless
 awslambdaric==3.1.1
-simplejson==3.20.1
+simplejson==3.20.2
 snapshot-restore-py==1.0.0
 
 # Reporting (Errors)
-sentry-sdk==2.32.0
-certifi==2025.6.15
+sentry-sdk==2.47.0
+certifi==2025.11.12
 urllib3==2.6.0
 
 # Serverless WSGI
 serverless-wsgi==3.1.0
-MarkupSafe==3.0.2
+MarkupSafe==3.0.3
 Werkzeug==3.1.4
 
 # Flask
-Flask==3.1.1
+Flask==3.1.2
 blinker==1.9.0
-click==8.2.1
+click==8.3.1
 itsdangerous==2.2.0
 Jinja2==3.1.6
