@@ -21,4 +21,4 @@ if os.environ.get("SENTRY_DSN"):
 
 app = Flask(__name__)
 
-from . import views  # noqa:E402,F401 isort:skip
+from . import views  # noqa:E402,F401
