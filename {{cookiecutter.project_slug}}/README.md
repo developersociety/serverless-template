@@ -8,8 +8,8 @@ and [The Developer Society Dev Tools](https://github.com/developersociety/tools)
 Presuming you are using those tools, getting started on this project is pretty straightforward:
 
 ```console
-$ dev-clone {{ cookiecutter.project_name }}
-$ workon {{ cookiecutter.project_name }}
+$ dev-clone {{ cookiecutter.project_slug }}
+$ workon {{ cookiecutter.project_slug }}
 $ make reset
 ```
 
