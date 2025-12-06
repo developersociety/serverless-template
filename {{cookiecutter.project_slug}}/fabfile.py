@@ -63,6 +63,7 @@ def deploy():
     )
 
     aws_vault("npm run serverless -- deploy --stage {}".format(env.stage))
+    aws_vault("npm run serverless -- info --verbose --stage {}".format(env.stage))
 
 
 @task
