@@ -22,8 +22,8 @@ SHELL=/bin/bash
 help: ## This help dialog.
 help: help-display
 
-clean: ## Remove unneeded files generated from the various build tasks.
-clean: coverage-clean
+nuke: ## Full wipe of the local environment, uncommitted files, and database.
+nuke: venv-check venv-wipe git-full-clean
 
 reset: ## Reset your local environment. Useful after switching branches, etc.
 reset: venv-check venv-wipe install-local
@@ -32,7 +32,7 @@ clear: ## Like reset but without the wiping of the installs.
 clear: ;
 
 check: ## Check for any obvious errors in the project's setup.
-check: pipdeptree-check npm-check
+check: uv-check npm-check
 
 format: ## Run this project's code formatters.
 format: ruff-format
@@ -68,23 +68,32 @@ ifndef VIRTUAL_ENV
 endif
 
 venv-wipe: venv-check
-	if ! pip list --format=freeze | grep -v "^pip=\|^setuptools=\|^wheel=" | xargs pip uninstall -y; then \
-	    echo "Nothing to remove"; \
-	fi
+	uv pip freeze | uv pip uninstall -r -
+
+
+# Destructive cleaning
+git-full-clean:
+	git clean -ffdx
 
 
 # Installs
-install-local: npm-install pip-install-local
+install-local: npm-install uv-install-local
 
 
-# Pip
-pip-install-local: venv-check
-	pip install -r requirements/local.txt
+# UV
+uv-install-local: venv-check
+	uv sync --active --frozen --dev
+
+uv-upgrade: venv-check
+	uv lock --upgrade
+
+uv-check: venv-check
+	uv lock --check
 
 
 # Fabfile
 fab-deploy:
-	fab deploy
+	fab $${site:-live} deploy
 
 
 # Coverage
@@ -119,11 +128,6 @@ ruff-lint:
 ruff-format:
 	ruff check --fix-only
 	ruff format
-
-
-#pipdeptree
-pipdeptree-check:
-	pipdeptree --warn fail > /dev/null
 
 
 # Local server

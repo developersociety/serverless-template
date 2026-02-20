@@ -9,6 +9,12 @@ env.stage = env.get("stage", "production")
 
 
 @task
+def live():
+    # Intentional no-op for make commands, this is the default
+    pass
+
+
+@task
 def demo():
     """
     Load demo environment settings.

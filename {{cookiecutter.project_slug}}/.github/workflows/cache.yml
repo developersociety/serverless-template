@@ -1,0 +1,25 @@
+name: Cache
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: read
+jobs:
+  cache:
+    name: Setup ${{ github.ref_name }} cache
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Setup Python
+        uses: actions/setup-python@v6
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          prune-cache: false
+      - name: Install packages for cache
+        run: uv sync --frozen --group testing --no-dev
