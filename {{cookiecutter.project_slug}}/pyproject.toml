@@ -17,7 +17,7 @@ testing = [
     "pytest<10.0",
     "pytest-flask<2.0",
     "ruff<0.16",
-    "tox-uv<2.0",
+    "tox-uv-bare<2.0",
 ]
 dev = [
     {include-group = "testing"},
