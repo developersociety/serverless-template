@@ -4,6 +4,6 @@
     "serverless": "serverless"
   },
   "dependencies": {
-    "osls": "^3.69.0"
+    "osls": "^4.0.0"
   }
 }
