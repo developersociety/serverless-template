@@ -52,6 +52,9 @@ def deploy():
         "--query=repositories[0].repositoryUri".format(service_name),
         capture=True,
     )
+    # Use IPv6 hostname
+    image_url = image_url.replace(".dkr.ecr.", ".dkr-ecr.").replace(".amazonaws.com", ".on.aws")
+
     repository_hostname = image_url.split("/")[0]
 
     aws_vault(
