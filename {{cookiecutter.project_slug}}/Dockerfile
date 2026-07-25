@@ -9,7 +9,7 @@ RUN uv sync \
     --compile-bytecode \
     --group production \
     --no-dev
-COPY . /app
+COPY --parents ./** /app/
 ARG SENTRY_RELEASE
 RUN echo "$SENTRY_RELEASE" > .sentry-release
 

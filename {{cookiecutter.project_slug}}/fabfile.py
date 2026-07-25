@@ -1,4 +1,7 @@
 # ruff: noqa
+import shutil
+import tempfile
+
 from fabric.api import env, local, task
 from fabric.context_managers import quiet
 
@@ -52,21 +55,32 @@ def deploy():
     repository_hostname = image_url.split("/")[0]
 
     aws_vault(
-        "aws ecr get-login-password | docker login --username AWS --password-stdin {}".format(
+        "aws ecr get-login-password | skopeo login --username AWS --password-stdin {}".format(
             repository_hostname,
         )
     )
 
     # Build with a fresh environment to avoid uncommitted files or cruft
     sentry_release = local("git rev-parse HEAD", capture=True)
+    build_directory = tempfile.mkdtemp()
+    local("git archive HEAD | tar x -C {}".format(build_directory))
+    container_tag = "{}:latest".format(image_url)
     local(
-        "git archive HEAD | "
-        "docker buildx build --build-arg SENTRY_RELEASE={} --push --platform={} --tag={} -".format(
+        "container build --build-arg SENTRY_RELEASE={} --platform={} --tag={} {}".format(
             sentry_release,
             env.arch,
-            image_url,
+            container_tag,
+            build_directory,
         )
     )
+    local("container image save {} --output {}/image.tar".format(container_tag, build_directory))
+    platform_os, platform_arch = env.arch.split("/")
+    local(
+        "skopeo --override-os {} --override-arch {} copy oci-archive:{}/image.tar docker://{}".format(
+            platform_os, platform_arch, build_directory, container_tag
+        )
+    )
+    shutil.rmtree(build_directory)
 
     aws_vault("pnpm run --silent serverless deploy --stage {}".format(env.stage))
     aws_vault("pnpm run --silent serverless info --verbose --stage {}".format(env.stage))
