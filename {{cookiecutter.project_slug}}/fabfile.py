@@ -68,8 +68,8 @@ def deploy():
         )
     )
 
-    aws_vault("npm run serverless -- deploy --stage {}".format(env.stage))
-    aws_vault("npm run serverless -- info --verbose --stage {}".format(env.stage))
+    aws_vault("pnpm run --silent serverless deploy --stage {}".format(env.stage))
+    aws_vault("pnpm run --silent serverless info --verbose --stage {}".format(env.stage))
 
 
 @task
@@ -130,4 +130,6 @@ def invoke(name):
 
       fab invoke:name=function_name
     """
-    aws_vault("npm run serverless -- invoke --stage {} --function {}".format(env.stage, name))
+    aws_vault(
+        "pnpm run --silent serverless invoke --stage {} --function {}".format(env.stage, name)
+    )

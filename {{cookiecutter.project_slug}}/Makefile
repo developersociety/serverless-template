@@ -32,7 +32,7 @@ clear: ## Like reset but without the wiping of the installs.
 clear: ;
 
 check: ## Check for any obvious errors in the project's setup.
-check: uv-check npm-check
+check: uv-check pnpm-check
 
 format: ## Run this project's code formatters.
 format: ruff-format
@@ -77,7 +77,7 @@ git-full-clean:
 
 
 # Installs
-install-local: npm-install uv-install-local
+install-local: pnpm-install uv-install-local
 
 
 # UV
@@ -113,11 +113,11 @@ pytest-test:
 	PYTHONWARNINGS=all coverage run -m pytest
 
 
-# NPM
-npm-check: npm-install
+# pnpm
+pnpm-check: pnpm-install
 
-npm-install:
-	cmp --silent package-lock.json node_modules/.package-lock.json || (npm ci && cp -a package-lock.json node_modules/.package-lock.json)
+pnpm-install:
+	cmp --silent pnpm-lock.yaml node_modules/.pnpm-lock.yaml || (pnpm install --frozen-lockfile && cp -a pnpm-lock.yaml node_modules/.pnpm-lock.yaml)
 
 
 # Ruff

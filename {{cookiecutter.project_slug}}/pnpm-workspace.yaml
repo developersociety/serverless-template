@@ -1,0 +1,7 @@
+# Delay package upgrades for 2 days
+minimumReleaseAge: 2880
+
+allowBuilds:
+  aws-sdk: true
+  es5-ext: true
+  esbuild: true
