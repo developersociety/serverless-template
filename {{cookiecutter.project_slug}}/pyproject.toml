@@ -17,12 +17,12 @@ testing = [
     "pytest<10.0",
     "pytest-flask<2.0",
     "ruff<0.16",
-    "tox-uv<2.0",
+    "tox-uv-bare<2.0",
 ]
 dev = [
     {include-group = "testing"},
     "ipdb<0.14",
-    "pipdeptree<3.0",
+    "pipdeptree<5.0",
 ]
 
 [tool.black]
@@ -113,3 +113,6 @@ section-order = ["future", "standard-library", "third-party", "first-party", "lo
 extend-ignore-names = [
     "assert*",
 ]
+
+[tool.uv]
+exclude-newer = "2 days"
