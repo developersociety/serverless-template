@@ -696,8 +696,8 @@ packages:
   type@2.7.3:
     resolution: {integrity: sha512-8j+1QmAbPvLZow5Qpi6NCaN8FB60p/6x8/vfNqOk/hC+HuvFZhL4+WfekuhQLiqFZXOgQdrs3B+XxEmCc6b3FQ==}
 
-  undici@7.28.0:
-    resolution: {integrity: sha512-cRZYrTDwWznlnRiPjggAGxZXanty6M8RV1ff8Wm4LWXBp7/IG8v5DnOm74DtUBp9OONpK75YlPnIjQqX0dBDtA==}
+  undici@7.30.0:
+    resolution: {integrity: sha512-dkrQXeHSaoamnItlYbmzG0wFYrM0ZwDxCIg0A7aKjTyyhh9svRzCNFEzV+Vm05/yehjCzjDZ31KXfGEjYSztDQ==}
     engines: {node: '>=20.18.1'}
 
   uni-global@1.0.0:
@@ -1525,7 +1525,7 @@ snapshots:
       signal-exit: 4.1.0
       tsx: 4.23.1
       type: 2.7.3
-      undici: 7.28.0
+      undici: 7.30.0
       write-file-atomic: 7.0.1
       yauzl: 3.4.0
       yazl: 3.3.1
@@ -1610,7 +1610,7 @@ snapshots:
 
   type@2.7.3: {}
 
-  undici@7.28.0: {}
+  undici@7.30.0: {}
 
   uni-global@1.0.0:
     dependencies:
