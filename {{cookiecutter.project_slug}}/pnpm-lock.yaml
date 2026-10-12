@@ -546,8 +546,8 @@ packages:
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
-  js-yaml@4.3.0:
-    resolution: {integrity: sha512-1td788aAnnZ5qs7V2QIRl1owjtYpbKt749Y3xauqQgwIIGF/xXWz1wMTEBx5O3LK3lXLVuqXPdPxj2BoFHaW9Q==}
+  js-yaml@4.3.2:
+    resolution: {integrity: sha512-SFNOvSJ+Dgf/9An904Yx+CgSlIPCkIpao4qo51lpee25TIRejdH3rhR4EZMGoNx3/TP3O+wzWuiTFl4sqbltzA==}
     hasBin: true
 
   json-cycle@1.5.0:
@@ -727,7 +727,7 @@ snapshots:
   '@apidevtools/json-schema-ref-parser@15.5.0(@types/json-schema@7.0.15)':
     dependencies:
       '@types/json-schema': 7.0.15
-      js-yaml: 4.3.0
+      js-yaml: 4.3.2
 
   '@aws-sdk/checksums@3.1000.19':
     dependencies:
@@ -1421,7 +1421,7 @@ snapshots:
 
   isexe@2.0.0: {}
 
-  js-yaml@4.3.0:
+  js-yaml@4.3.2:
     dependencies:
       argparse: 2.0.1
 
@@ -1514,7 +1514,7 @@ snapshots:
       fastest-levenshtein: 1.0.16
       filenamify: 7.0.2
       https-proxy-agent: 9.1.0(supports-color@8.1.1)
-      js-yaml: 4.3.0
+      js-yaml: 4.3.2
       json-cycle: 1.5.0
       log: 6.3.2
       log-node: 8.0.3(log@6.3.2)
